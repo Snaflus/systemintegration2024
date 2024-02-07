@@ -1,9 +1,15 @@
+using System.Xml.Serialization;
 using CsvHelper.Configuration;
 
+[XmlRoot("me")]
 public class Person
 {
+    [XmlElement("name")]
     public string name {get; set;}
+    [XmlElement("age")]
     public int age {get; set;}
+    [XmlArray("hobbies")]
+    [XmlArrayItem("hobby")]
     public List<string> hobbies {get; set;}
     private string hobbiesToString => string.Join(", ", hobbies);
     public override string ToString()

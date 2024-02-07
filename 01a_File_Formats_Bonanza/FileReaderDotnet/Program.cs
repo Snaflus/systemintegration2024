@@ -7,6 +7,12 @@ Console.WriteLine("JSON::: " + personJson.ToString());
 Person personCsv = LoadPersonFrom.Csv(dataFolder+"me.csv");
 Console.WriteLine("CSV::: " + personCsv.ToString());
 
+Person personXml = LoadPersonFrom.Xml(dataFolder+"me.xml");
+Console.WriteLine("XML::: " + personXml.ToString());
+
+Person personYaml = LoadPersonFrom.Yaml(dataFolder+"me.yaml");
+Console.WriteLine("YAML::: " + personYaml.ToString());
+
 string getDataFolder() //hackjob to find folder with data files
 {
     String rootFolder = AppDomain.CurrentDomain.BaseDirectory;

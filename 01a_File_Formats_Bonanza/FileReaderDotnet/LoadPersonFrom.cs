@@ -22,7 +22,7 @@ public static class LoadPersonFrom
         var serializer = new XmlSerializer(typeof(Person));
         using (var reader = new StreamReader(fileLocation))
         {
-            Person person = (Person)serializer.Deserialize(reader);
+            Person person = (Person)serializer.Deserialize(reader)!;
             return person;
         }
     }
@@ -45,7 +45,7 @@ public static class LoadPersonFrom
         var serializer = new JsonSerializer();
         using (StreamReader reader = File.OpenText(fileLocation))
         {
-            Person person = (Person)serializer.Deserialize(reader, typeof(Person));
+            Person person = (Person)serializer.Deserialize(reader, typeof(Person))!;
             return person;
         }
     }

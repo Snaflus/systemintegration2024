@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using CsvHelper.Configuration;
 
@@ -5,12 +6,12 @@ using CsvHelper.Configuration;
 public class Person
 {
     [XmlElement("name")]
-    public string name {get; set;}
+    public required string name { get; set; }
     [XmlElement("age")]
-    public int age {get; set;}
+    public int age { get; set; }
     [XmlArray("hobbies")]
     [XmlArrayItem("hobby")]
-    public List<string> hobbies {get; set;}
+    public required List<string> hobbies { get; set; }
     private string hobbiesToString => string.Join(", ", hobbies);
     public override string ToString()
     {

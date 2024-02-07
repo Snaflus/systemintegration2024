@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<name>"Casper"</name>
-<age>24</age>
-<hobbies>
-    <hobby>coding</hobby>    
-    <hobby>eating</hobby>    
-    <hobby>gaming</hobby>
-</hobbies>
+<me>
+    <name>Casper</name>
+    <age>24</age>
+    <hobbies>
+        <hobby>coding</hobby>    
+        <hobby>eating</hobby>    
+        <hobby>gaming</hobby>
+    </hobbies>
+</me>

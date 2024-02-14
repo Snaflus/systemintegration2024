@@ -20,9 +20,31 @@ public class PersonController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet, ActionName("Json")]
-    public Person Get()
+    [HttpGet]
+    public ActionResult<Person> Get()
     {
-        return person;
+        string? contentType = Request.ContentType;
+        if (String.IsNullOrEmpty(contentType))
+        {
+            contentType = "application/json";
+        }
+
+        switch (contentType)
+        {
+            case "application/xml":
+                return Content(person.ToXml(), "application/xml");
+
+            case "application/json":
+                return person;
+
+            case "application/yaml" or "application/x-yaml":
+                return Content(person.ToYaml(), "application/yaml");
+
+            case "text/csv":
+                return Content(person.ToCsv(), "text/csv");
+
+            default:
+                return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 }

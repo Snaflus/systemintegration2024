@@ -5,7 +5,6 @@ import * as CSV from "csv-string";
 var parseString = require("xml2js").parseString;
 
 export class LoadPersonFrom {
-  //module in use runs an async pipe which creates seemingly unsolvable problem
   static Xml(fileLocation: string): Person {
     var data = readFileSync(fileLocation, "utf8");
     let rData: Person = {

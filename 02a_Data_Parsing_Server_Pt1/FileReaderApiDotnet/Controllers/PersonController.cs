@@ -8,7 +8,7 @@ public class PersonController : ControllerBase
 {
     private static readonly Person person = new Person
     {
-        name = "Casper",
+        name = "CasperDotnetGenerated",
         age = 24,
         hobbies = new List<string> { "coding", "eating", "gaming" }
     };

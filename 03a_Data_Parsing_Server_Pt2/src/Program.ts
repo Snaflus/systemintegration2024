@@ -23,8 +23,24 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+app.get("/jsonExternal", async (req: Request, res: Response) => {
+  const response = await fetch("http://localhost:5149/Person");
+  const result = await response.json();
+  res.send(result);
+});
+
 app.get("/json", (req: Request, res: Response) => {
   res.send(person);
+});
+
+app.get("/yamlExternal", async (req: Request, res: Response) => {
+  const response = await fetch("http://localhost:5149/Person", {
+    headers: new Headers({
+      "content-type": "application/yaml",
+    }),
+  });
+  const result = await response.text();
+  res.send(result);
 });
 
 app.get("/yaml", (req: Request, res: Response) => {
@@ -32,9 +48,29 @@ app.get("/yaml", (req: Request, res: Response) => {
   res.send(yamlData);
 });
 
+app.get("/csvExternal", async (req: Request, res: Response) => {
+  const response = await fetch("http://localhost:5149/Person", {
+    headers: new Headers({
+      "content-type": "text/csv",
+    }),
+  });
+  const result = await response.text();
+  res.send(result);
+});
+
 app.get("/csv", (req: Request, res: Response) => {
   let csvData = CSV.stringify([Object.values(person)]);
   res.send(csvData);
+});
+
+app.get("/xmlExternal", async (req: Request, res: Response) => {
+  const response = await fetch("http://localhost:5149/Person", {
+    headers: new Headers({
+      "content-type": "application/xml",
+    }),
+  });
+  const result = await response.text();
+  res.send(result);
 });
 
 app.get("/xml", (req: Request, res: Response) => {

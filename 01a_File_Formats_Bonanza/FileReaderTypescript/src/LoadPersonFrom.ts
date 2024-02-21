@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { Person } from "./Person";
 import YAML from "yaml";
 import * as CSV from "csv-string";
-var parseString = require("xml2js").parseString;
+import xml2js from "xml2js";
 
 export class LoadPersonFrom {
   static Xml(fileLocation: string): Person {
@@ -13,7 +13,7 @@ export class LoadPersonFrom {
       hobbies: [],
     };
 
-    parseString(data, function (err: any, result: any) {
+    xml2js.parseString(data, function (err: any, result: any) {
       rData = {
         name: result.me.name[0],
         age: Number(result.me.age[0]),

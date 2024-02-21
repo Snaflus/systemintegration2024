@@ -1,3 +1,4 @@
+using System.Runtime.Serialization.DataContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FileReaderApiDotnet.Controllers;
@@ -48,6 +49,40 @@ public class PersonController : ControllerBase
         }
     }
 
+    private async Task<String> Fetch(string endUrl)
+    {
+        string baseUrl = "http://localhost:8080/";
+        string rData = "";
+        try
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(baseUrl + endUrl))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            Console.WriteLine(data);
+                            rData = data;
+                        }
+                        else
+                        {
+                            Console.WriteLine("NO DATA");
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine("Exception Hit------------");
+            Console.WriteLine(exception);
+        }
+        return rData;
+    }
+
     [HttpGet("External")]
     public async Task<ActionResult<String>> GetExternal()
     {
@@ -57,141 +92,32 @@ public class PersonController : ControllerBase
             contentType = "application/json";
         }
 
-        string baseUrl = "http://localhost:8080/";
         switch (contentType)
         {
             case "application/xml":
                 Response.ContentType = "application/xml";
-                string xmlData = "";
-                try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        using (HttpResponseMessage res = await client.GetAsync(baseUrl + "xml"))
-                        {
-                            using (HttpContent content = res.Content)
-                            {
-                                var data = await content.ReadAsStringAsync();
-                                if (data != null)
-                                {
-                                    Console.WriteLine(data);
-                                    xmlData = data;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("NO DATA");
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine("Exception Hit------------");
-                    Console.WriteLine(exception);
-                }
+                string xmlData = Fetch("xml").Result;
                 if (String.IsNullOrEmpty(xmlData))
                     return StatusCode(StatusCodes.Status500InternalServerError, "No Data Found");
                 return Content(xmlData);
 
             case "application/json":
                 Response.ContentType = "application/json";
-                string jsonData = "";
-                try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        using (HttpResponseMessage res = await client.GetAsync(baseUrl + "json"))
-                        {
-                            using (HttpContent content = res.Content)
-                            {
-                                var data = await content.ReadAsStringAsync();
-                                if (data != null)
-                                {
-                                    Console.WriteLine(data);
-                                    jsonData = data;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("NO DATA");
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine("Exception Hit------------");
-                    Console.WriteLine(exception);
-                }
+                string jsonData = Fetch("json").Result;
                 if (String.IsNullOrEmpty(jsonData))
                     return StatusCode(StatusCodes.Status500InternalServerError, "No Data Found");
                 return Content(jsonData);
 
             case "application/yaml" or "application/x-yaml":
                 Response.ContentType = "application/yaml";
-                string yamlData = "";
-                try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        using (HttpResponseMessage res = await client.GetAsync(baseUrl + "yaml"))
-                        {
-                            using (HttpContent content = res.Content)
-                            {
-                                var data = await content.ReadAsStringAsync();
-                                if (data != null)
-                                {
-                                    Console.WriteLine(data);
-                                    yamlData = data;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("NO DATA");
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine("Exception Hit------------");
-                    Console.WriteLine(exception);
-                }
+                string yamlData = Fetch("yaml").Result;
                 if (String.IsNullOrEmpty(yamlData))
                     return StatusCode(StatusCodes.Status500InternalServerError, "No Data Found");
                 return Content(yamlData);
 
             case "text/csv":
                 this.Response.ContentType = "text/csv";
-                string csvData = "";
-                try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        using (HttpResponseMessage res = await client.GetAsync(baseUrl + "csv"))
-                        {
-                            using (HttpContent content = res.Content)
-                            {
-                                var data = await content.ReadAsStringAsync();
-                                if (data != null)
-                                {
-                                    Console.WriteLine(data);
-                                    csvData = data;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("NO DATA");
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine("Exception Hit------------");
-                    Console.WriteLine(exception);
-                }
+                string csvData = Fetch("csv").Result;
                 if (String.IsNullOrEmpty(csvData))
                     return StatusCode(StatusCodes.Status500InternalServerError, "No Data Found");
                 return Content(csvData);

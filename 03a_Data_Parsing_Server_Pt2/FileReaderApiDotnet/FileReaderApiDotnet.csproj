@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="csvhelper" Version="31.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="yamldotnet" Version="15.1.1" />
   </ItemGroup>

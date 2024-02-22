@@ -23,7 +23,7 @@ public class PersonController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<Person> Get()
+    public async Task<ActionResult<Person>> Get()
     {
         string? contentType = Request.ContentType;
         if (String.IsNullOrEmpty(contentType))

@@ -43,7 +43,7 @@ app.get("/yaml/External", async (req: Request, res: Response) => {
   res.send(result);
 });
 
-app.get("/yaml", (req: Request, res: Response) => {
+app.get("/yaml", async (req: Request, res: Response) => {
   let yamlData = YAML.stringify(person);
   res.send(yamlData);
 });
@@ -58,7 +58,7 @@ app.get("/csv/External", async (req: Request, res: Response) => {
   res.send(result);
 });
 
-app.get("/csv", (req: Request, res: Response) => {
+app.get("/csv", async (req: Request, res: Response) => {
   let csvData = CSV.stringify([Object.values(person)]);
   res.send(csvData);
 });
@@ -73,7 +73,7 @@ app.get("/xml/External", async (req: Request, res: Response) => {
   res.send(result);
 });
 
-app.get("/xml", (req: Request, res: Response) => {
+app.get("/xml", async (req: Request, res: Response) => {
   var options = { compact: true, ignoreComment: true, spaces: 4 };
   let xmlData = xmljs.js2xml(person, options);
   res.send(xmlData);

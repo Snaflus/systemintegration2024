@@ -65,8 +65,14 @@ app.post("/payment", async (req: Request, res: Response) => {
 });
 
 app.get("/payment/:paymentId", async (req: Request, res: Response) => {
+  let reqPaymentId = parseInt(req.params.paymentId);
+  if (isNaN(reqPaymentId)) {
+    res.status(400).send({ error: "Invalid payment id" });
+    return;
+  }
+
   const paymentDetails = await Payment.findOne({
-    paymentId: req.params.paymentId,
+    paymentId: reqPaymentId,
   });
 
   //send webhook when get is called on payment
@@ -96,6 +102,12 @@ app.get("/payment/:paymentId", async (req: Request, res: Response) => {
 });
 
 app.delete("/payment/:paymentId", async (req: Request, res: Response) => {
+  let reqPaymentId = parseInt(req.params.paymentId);
+  if (isNaN(reqPaymentId)) {
+    res.status(400).send({ error: "Invalid payment id" });
+    return;
+  }
+
   const paymentDetails = await Payment.findOne({
     paymentId: req.params.paymentId,
   });
@@ -173,6 +185,12 @@ app.post("/payment/webhook", async (req: Request, res: Response) => {
 app.delete(
   "/payment/webhook/:paymentId",
   async (req: Request, res: Response) => {
+    let reqPaymentId = parseInt(req.params.paymentId);
+    if (isNaN(reqPaymentId)) {
+      res.status(400).send({ error: "Invalid payment id" });
+      return;
+    }
+
     const paymentDetails = await Payment.findOne({
       paymentId: req.params.paymentId,
     });

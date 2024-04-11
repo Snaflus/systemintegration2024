@@ -7,9 +7,8 @@
     <title>Forms</title>
   </head>
   <body>
-    <h2>Basic Form</h2>
-
-    <form action="http://localhost:8080/form" method="POST">
+    <h2>Basic Form</h2> <!-- port 8000 for python, 8080 for js -->
+    <form action="http://localhost:8000/form" method="POST">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" placeholder="username" />
 
@@ -19,19 +18,42 @@
       <button type="submit">Submit</button>
     </form>
 
-    <h2>File Form</h2>
+    <h2>File Form</h2> <!-- port 8000 for python, 8080 for js -->
     <form
-      action="http://localhost:8090/fileform"
+      action="http://localhost:8080/fileform" 
       method="POST"
       enctype="multipart/form-data"
     >
       <label for="file">File:</label>
-      <input type="file" id="file" name="file" accept="image/png" />
+      <!-- its possible to add multiple as an attribute -->
+      <input type="file" id="file" name="file" accept="image/*" />
 
       <label for="description"></label>
       <input type="text" id="description" name="description" placeholder="description"></input>
 
       <button type="submit">Send file</button>
     </form>
+
+    <script>
+      const fileInput = document.querySelector('input[type="file"]');
+
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        
+        const validTypes = ["image/png","image/svg"]; //jpg and jpeg left out on purpose
+        if (!validTypes.includes(file.type)) {
+          alert("Not a valid file type");
+          fileInput.value = "";
+          return;
+        }
+
+        const maxSize = 10 * 1024 * 1024; // 10MB
+        if (file.size > maxSize) {
+          alert(`File is too big, max size: ${maxSize} bytes`);
+          fileInput.value = "";
+          return;
+        }
+      })
+    </script>
   </body>
 </html>

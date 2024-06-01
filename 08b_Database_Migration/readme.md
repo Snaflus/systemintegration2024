@@ -21,3 +21,9 @@ knex migrate:latest
 knex seed:run
 node index.js
 ```
+
+To migrate data from one MySQL server to another use run
+
+```
+node migrateData.js
+```

@@ -1,0 +1,10 @@
+AWS Cognito and Azure AD are complex to set up and navigate. Ecosystem based and works best with their own ecosystem.
+
+Google Cloud Identity is easier to set up but also suffers from being heavily ecosystem based (also less mature than previous two)
+
+Okta incredibly robust and wide range of features but this also means it can be complex to set up. Expensive for small business.
+
+Auth0 good documentation and somewhat wide range of features. Expensive at large scale.
+
+I excluded the first 3 purely based on the ecosystem factor
+Between Okta and Auth0 I ended up going with Auth0 for the strong documentation

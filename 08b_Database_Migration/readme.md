@@ -5,6 +5,7 @@ knex migrate:make initial_migration
 ```
 
 See 08a for reminder on how to set up MySQL docker container
+
 To run project in steps do:
 
 ```
